@@ -22,9 +22,9 @@ router.get("/comics", async (req, res) => {
 
   // Check if body is complete
   if (
-    req.body.limit === undefined ||
-    req.body.skip === undefined ||
-    req.body.title === undefined
+    req.query.limit === undefined ||
+    req.query.skip === undefined ||
+    req.query.title === undefined
   ) {
     return res
       .status(400)
@@ -32,7 +32,7 @@ router.get("/comics", async (req, res) => {
   }
 
   // Body destructuring and apiKey
-  const { limit, skip, title } = req.body;
+  const { limit, skip, title } = req.query;
   const apiKey = process.env.API_KEY;
 
   // Base URL

@@ -19,20 +19,11 @@ const axios = require("axios");
 
 router.get("/characters", async (req, res) => {
   //
-  // Check if body is complete
-  if (
-    req.body.limit === undefined ||
-    req.body.skip === undefined ||
-    req.body.name === undefined
-  ) {
-    return res
-      .status(400)
-      .json({ message: "Limit, Skip or Name were not correctly transmitted" });
-  }
 
   // Body destructuring and apiKey
-  const { limit, skip, name } = req.body;
+  const { limit, skip, name } = req.query;
   const apiKey = process.env.API_KEY;
+  console.log(limit, skip, name); // to check request from client
 
   // Base URL
   const baseUrl = "https://lereacteur-marvel-api.herokuapp.com/characters?";
