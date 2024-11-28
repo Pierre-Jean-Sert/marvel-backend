@@ -2,7 +2,7 @@
 
 * MARVEL - Backend
 
-* API - Index.js
+* Index.js
 
 */
 
@@ -15,7 +15,7 @@ const cors = require("cors");
 app.use(cors());
 
 //! Other packages
-// Allow server to receive body
+// Allow server to receive body (only use for signup and login)
 app.use(express.json());
 
 //Require .env

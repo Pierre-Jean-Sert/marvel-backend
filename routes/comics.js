@@ -19,53 +19,52 @@ const axios = require("axios");
 
 router.get("/comics", async (req, res) => {
   //
-
-  // Check if body is complete
-  if (
-    req.query.limit === undefined ||
-    req.query.skip === undefined ||
-    req.query.title === undefined
-  ) {
-    return res
-      .status(400)
-      .json({ message: "Limit, Skip or Title were not correctly transmitted" });
-  }
-
-  // Body destructuring and apiKey
-  const { limit, skip, title } = req.query;
-  const apiKey = process.env.API_KEY;
-
-  // Base URL
-  const baseUrl = "https://lereacteur-marvel-api.herokuapp.com/comics?";
-
-  // URL Filters
-  const filters = {
-    apiKey: apiKey,
-    limit: limit,
-    skip: skip,
-    title: title,
-  };
-
-  // URL Filter builder
-  const filterBuilder = Object.entries(filters)
-    .filter(([_, value]) => value !== "")
-    .map(([key, value]) => `${key}=${value}`)
-    .join("&");
-
-  // URL constructor
-  const url = baseUrl + filterBuilder;
-
-  // Axios request
   try {
-    //Response constructor
+    // Check if query is complete
+    if (
+      req.query.limit === undefined ||
+      req.query.skip === undefined ||
+      req.query.title === undefined
+    ) {
+      return res.status(400).json({
+        message: "Limit, Skip or Title were not correctly transmitted",
+      });
+    }
+
+    // Body destructuring and apiKey
+    const { limit, skip, title } = req.query;
+    const apiKey = process.env.API_KEY;
+    // console.log(limit, skip, title); // to check request from client
+
+    // Base URL
+    const baseUrl = "https://lereacteur-marvel-api.herokuapp.com/comics?";
+
+    // URL filters
+    const filters = {
+      apiKey: apiKey,
+      limit: limit,
+      skip: skip,
+      title: title,
+    };
+
+    // URL filter builder
+    const filterBuilder = Object.entries(filters)
+      .filter(([_, value]) => value !== "")
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&");
+
+    // URL constructor
+    const url = baseUrl + filterBuilder;
+
+    // Axios request
     const response = await axios.get(url);
 
     // Client response
-    res.status(200).json(response.data);
+    return res.status(200).json(response.data);
 
     //
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 
@@ -75,28 +74,26 @@ router.get("/comics", async (req, res) => {
 
 router.get("/comic/:id", async (req, res) => {
   //
-
-  // Recovery params and apiKey
-  const { id } = req.params;
-  const apiKey = process.env.API_KEY;
-
-  // Base URL
-  const baseUrl = "https://lereacteur-marvel-api.herokuapp.com/comic/";
-
-  // URL constructor
-  const url = baseUrl + id + "?apiKey=" + apiKey;
-
-  // Axios request
   try {
-    //Response constructor
+    // Recovery params and apiKey
+    const { id } = req.params;
+    const apiKey = process.env.API_KEY;
+
+    // Base URL
+    const baseUrl = "https://lereacteur-marvel-api.herokuapp.com/comic/";
+
+    // URL constructor
+    const url = baseUrl + id + "?apiKey=" + apiKey;
+
+    // Axios request
     const response = await axios.get(url);
 
     // Client response
-    res.status(200).json(response.data);
+    return res.status(200).json(response.data);
 
     //
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 
@@ -106,28 +103,26 @@ router.get("/comic/:id", async (req, res) => {
 
 router.get("/comics/:characterId", async (req, res) => {
   //
-
-  // Recovery params and apiKey
-  const { characterId } = req.params;
-  const apiKey = process.env.API_KEY;
-
-  // Base URL
-  const baseUrl = "https://lereacteur-marvel-api.herokuapp.com/comics/";
-
-  // URL constructor
-  const url = baseUrl + characterId + "?apiKey=" + apiKey;
-
-  // Axios request
   try {
-    //Response constructor
+    // Recovery params and apiKey
+    const { characterId } = req.params;
+    const apiKey = process.env.API_KEY;
+
+    // Base URL
+    const baseUrl = "https://lereacteur-marvel-api.herokuapp.com/comics/";
+
+    // URL constructor
+    const url = baseUrl + characterId + "?apiKey=" + apiKey;
+
+    // Axios request
     const response = await axios.get(url);
 
     // Client response
-    res.status(200).json(response.data);
+    return res.status(200).json(response.data);
 
     //
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 
